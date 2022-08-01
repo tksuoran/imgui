@@ -67,6 +67,7 @@ int main(int, char**)
     ImGuiIO& io = ImGui::GetIO(); (void)io;
     //io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
     //io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
+    io.ConfigWindowsMoveFromTitleBarOnly = true; // Needed to unmask the bug
 
     // Setup Dear ImGui style
     ImGui::StyleColorsDark();
@@ -85,6 +86,8 @@ int main(int, char**)
     // - Remember that in C/C++ if you want to include a backslash \ in a string literal you need to write a double backslash \\ !
     //io.Fonts->AddFontDefault();
     //io.Fonts->AddFontFromFileTTF("../../misc/fonts/Roboto-Medium.ttf", 16.0f);
+    ImFont* font_a = io.Fonts->AddFontFromFileTTF("../../misc/fonts/Roboto-Medium.ttf", 10.0f);
+    ImFont* font_b = io.Fonts->AddFontFromFileTTF("../../misc/fonts/Roboto-Medium.ttf", 30.0f);
     //io.Fonts->AddFontFromFileTTF("../../misc/fonts/Cousine-Regular.ttf", 15.0f);
     //io.Fonts->AddFontFromFileTTF("../../misc/fonts/DroidSans.ttf", 16.0f);
     //io.Fonts->AddFontFromFileTTF("../../misc/fonts/ProggyTiny.ttf", 10.0f);
@@ -110,6 +113,7 @@ int main(int, char**)
         ImGui_ImplOpenGL3_NewFrame();
         ImGui_ImplGlfw_NewFrame();
         ImGui::NewFrame();
+        ImGui::PushFont(font_b);
 
         // 1. Show the big demo window (Most of the sample code is in ImGui::ShowDemoWindow()! You can browse its code to learn more about Dear ImGui!).
         if (show_demo_window)
@@ -147,6 +151,8 @@ int main(int, char**)
                 show_another_window = false;
             ImGui::End();
         }
+
+        ImGui::PopFont();
 
         // Rendering
         ImGui::Render();
