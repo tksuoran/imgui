@@ -7268,12 +7268,17 @@ bool ImGui::TreeNodeBehavior(ImGuiID id, ImGuiTreeNodeFlags flags, const char* l
         else
         {
             // Unframed typed for tree nodes
-            if (hovered || selected)
+            if (selected)
             {
-                const ImU32 bg_col = GetColorU32((held && hovered) ? ImGuiCol_HeaderActive : hovered ? ImGuiCol_HeaderHovered : ImGuiCol_Header);
+                const ImU32 bg_col = GetColorU32(ImGuiCol_HeaderSelected);
                 RenderFrame(frame_bb.Min, frame_bb.Max, bg_col, false, 0.0f);
             }
-            RenderNavCursor(frame_bb, id, nav_render_cursor_flags, 0.0f);
+            if (hovered)
+            {
+                const ImU32 bg_col = GetColorU32((held && hovered) ? ImGuiCol_HeaderActive : ImGuiCol_HeaderHovered);
+                RenderFrame(frame_bb.Min, frame_bb.Max, bg_col, false, 0.0f);
+            }
+            RenderNavCursor(frame_bb, id, nav_render_cursor_flags);
             if (span_all_columns && !span_all_columns_label)
                 TablePopBackgroundChannel();
             if (flags & ImGuiTreeNodeFlags_Bullet)
